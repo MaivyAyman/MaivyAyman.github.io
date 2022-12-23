@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        padding: 0;
+        box-sizing: border-box;
+        
+      }
+      html {
+        font: 62.5%;
+      }
+      .textInTheCenter {
+        font-size: 2rem;
+      }
+
+      body {
+        background-color: black;
+        height: 100%;
+        position: relative;
+        overflow-y: hidden;
+      }
+
+      .animate{
+        animation: gradient 0.5s ease-in;
+        animation-fill-mode: forwards;
+      }
+
+
+      .center {
+        color: white;
+        font-size: calc(2rem + 1.5vh);
+      }
+
+      .flex--centering {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+      }
+
+      button:hover {
+        filter: brightness(80%);
+      }
+
+
+:root{
+  --color1: #3f87a6;
+  --color2: #ebf8e1;
+  --color3: #f69d3c;
+  --color4: #abd70c;
+  --color5: #e02424;
+
+  --deg:217deg;
+  --deg2:127deg;
+  --deg3:336deg;
+}
+
+
+      @keyframes gradient {
+        0% {
+          background: black;
+        }
+
+        100% {
+          background-repeat: none;
+           background: linear-gradient(var(--deg),rgba(255, 0, 0, 1),rgba(255, 0, 0, 0) 70.71%
+    ), linear-gradient(var(--deg2), rgba(0, 255, 0, 1), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(var(--deg3), rgba(0, 0, 255, 1), rgba(0, 0, 255, 0) 60%);
+           
+           
+           /* linear-gradient(0.1turn, #3f87a6, #ebf8e1, #f69d3c),
+            linear-gradient(0.4turn, #abd70c, #ebf8e1, #e02424); */
+        }
+      }
+
+
+
+
+
+      .bounce {
+        animation: bounce 2s infinite;
+      }
+
+      .BottomLeft {
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+      }
+
+      .outtext {
+        color: white;
+        /* font-size : 2rem; */
+        font-size: calc(2rem + 1.5vw);
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(60%);
+        }
+
+        50% {
+          transform: translateX(100%);
+        }
+      }
+
+      .fadeout {
+        animation: fadeout 0.5s ease-in;
+        animation-fill-mode: forwards;
+        pointer-events: none;
+      }
+
+
+
+      @keyframes fadeout {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+
+      @media (any-pointer: coarse) {
+        .BottomLeft {
+          cursor: none;
+        }
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="BOX">
+      <div class="flex--centering">
+        <h1 class="center">Inside the box</h1>
+      </div>
+      <div class="BottomLeft" onclick="changeImage()">
+        <div class="bounce">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z "
+              fill="white"
+              stroke="white"
+            />
+          </svg>
+        </div>
+        <h4 class="center">Go outside the box</h4>
+      </div>
+    </div>
+    <div id="button-image"></div>
+    <script>
+      const delay = (delayInms) => {
+        return new Promise((resolve) => setTimeout(resolve, delayInms));
+      };
+
+      async function changeImage() {
+        var box = document.getElementById("BOX");
+        box.classList.add("fadeout");
+        await delay(500);
+        document.body.classList.add("animate");        
+      }
+
+      var r = document.querySelector(':root');
+      var rs = getComputedStyle(r);
+
+      function ChangeRoot(){
+        
+        var deg = rs.getPropertyValue('--deg');
+        var deg2 = rs.getPropertyValue('--deg2');
+        var deg3 = rs.getPropertyValue('--deg3');
+        deg = deg.substring(0, deg.length - 3);
+        deg = parseInt(deg);
+        deg += 1;
+        deg%=360;
+
+        deg2 = deg2.substring(0, deg2.length - 3);
+        deg2 = parseInt(deg2);
+        deg2 += 2;
+        deg2%=360;
+
+        deg3 = deg3.substring(0, deg3.length - 3);
+        deg3 = parseInt(deg3);
+        deg3 += 1;
+        deg3%=360;
+
+
+
+        deg = deg.toString() + 'deg';
+        deg2 = deg2.toString() + 'deg';
+        deg3 = deg3.toString() + 'deg';
+
+
+        r.style.setProperty('--deg', deg);
+        r.style.setProperty('--deg2', deg2);
+        r.style.setProperty('--deg3', deg3);
+
+
+
+        // var deg = document.documentElement.style.getPropertyValue('--deg');
+
+        // document.documentElement.style.setProperty('--deg', deg + 'deg');
+      }
+
+       setInterval(ChangeRoot, 15);
+
+
+    </script>
+  </body>
+</html>
